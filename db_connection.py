@@ -37,11 +37,11 @@ def connectDataBase():
     # --> add your Python code here
 
 def createCategory(cur, catId, catName):
+    # Insert a category in the database
+    # --> add your Python code here
     sql = "Insert into category (id, name) Values (%s, %s)"
 
     cur.execute(sql, [catId, catName])
-    # Insert a category in the database
-    # --> add your Python code here
 
 
 def createDocument(cur, docId, docText, docTitle, docDate, docCat):
@@ -106,6 +106,8 @@ def deleteDocument(cur, docId):
 
     count_term = "Select count(*) from index where term = %s"
 
+    # For each term delete from index, check if there is still a count for it in index
+    # If not delete it from term
     for term in terms:
         cur.execute(delete_index, [term['term'], docId])
         cur.execute(count_term, [term['term']])
